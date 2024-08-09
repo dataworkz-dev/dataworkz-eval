@@ -17,7 +17,6 @@ To build our prompt we adapt the prompt template present in Chen et. al's paper 
 }
 ```
 Our final prompt template for generating metrics:
-
 ```python
 prompt =    """
             Given the following question:
@@ -40,23 +39,36 @@ prompt =    """
             The responses could be numerical, specific (e.g., names or dates), or descriptive.
 
             ### Evaluation Method:
-            1. Create a list of individual claims that can be inferred from the golden response with respect to the question.
-            2. Create a list of individual claims that can be inferred from the candidate response with respect to the question.
-            3. Calculate the total number of claims of the golden response present in the candidate response based on the following rules:
-                - the complete statement of each claim in golden response should be checked against the complete statement of each claim in candidate response. 
-                - If the golden response claim is specific in nature like numerical, names or dates then the candidate response claim should contains the exact value present in the golden response.
+            1. Create a list of individual claims that can be inferred from the golden response with
+		respect to the question.
+            2. Create a list of individual claims that can be inferred from the candidate response with
+		respect to the question.
+            3. Calculate the total number of claims of the golden response present in the candidate response
+		based on the following rules:
+                - the complete statement of each claim in golden response should be checked against the
+		complete statement of each claim in candidate response. 
+                - If the golden response claim is specific in nature like numerical, names or dates then
+		the candidate response claim should contains the exact value present in the golden response.
             
             ### For creating the individual claims follow the following instructions:
-             - Decompose the "Content" into clear and simple propositions, ensuring they are interpretable out of context.
-             - Split compound sentence into simple sentences. Maintain the original phrasing from the input whenever possible.
-             - For any named entity that is accompanied by additional descriptive information, separate this information into its own distinct proposition.
-             - Decontextualize the proposition by adding necessary modifier to nouns or entire sentences and replacing pronouns (e.g., "it", "he", "she", "they", "this", "that") with the full name of the entities they refer to.
+             - Decompose the "Content" into clear and simple propositions, ensuring they are interpretable
+		out of context.
+             - Split compound sentence into simple sentences. Maintain the original phrasing from the input
+		whenever possible.
+             - For any named entity that is accompanied by additional descriptive information, separate this
+		information into its own distinct proposition.
+             - Decontextualize the proposition by adding necessary modifier to nouns or entire sentences and
+		replacing pronouns (e.g., "it", "he", "she", "they", "this", "that") with the full name of
+		the entities they refer to.
 
             ### After creating the list, perform the following:
-            1. In the golden response claims, if any claim can be directly inferred from the question only then remove it from the list.
-            2. In the candidate repsonse claims, if any claim can be directly inferred from the question, only then remove it from the list.
+            1. In the golden response claims, if any claim can be directly inferred from the question only
+		then remove it from the list.
+            2. In the candidate repsonse claims, if any claim can be directly inferred from the question,
+		only then remove it from the list.
             
-            ### The final output should contain the explanation of the evaluation method and the numerical value in the following json format:
+            ### The final output should contain the explanation of the evaluation method and the numerical
+		value in the following json format:
             
             {{
                 Golden Response Claims: {{ <list of claims from the golden response> }}
@@ -73,22 +85,24 @@ prompt =    """
                                                 "1": The Mac line includes laptops.,
                                                 "2": The laptops mentioned are MacBook Air and MacBook Pro.,
                                                 "3": The Mac line includes desktops.,
-                                                "4": The desktops mentioned are iMac, Mac mini, Mac Studio, and Mac Pro.
+                                                "4": The desktops mentioned are iMac, Mac mini, Mac Studio,
+						     and Mac Pro.
                                             }},
                 "Candidate Response Claims":   {{
                                                 "1": The company's line of personal computers is called Mac.,
                                                 "2": It includes laptops.,
                                                 "3": The laptops included are MacBook Air and MacBook Pro.,
                                                 "4": It includes desktops.,
-                                                "5": The desktops included are iMac, Mac mini, Mac Studio, and Mac Pro.,
+                                                "5": The desktops included are iMac, Mac mini, Mac Studio,
+						     and Mac Pro.,
                                                 }},
                 "No of Golden Response Claims": 4,
                 "No of Candidate Response Claims": 5,
                 "No of Common Claims": 4
             }}
 
-            ### Please strictly adhere to the json format specified above. please provide the complete response
-            in json format.
+            ### Please strictly adhere to the json format specified above. please provide the complete
+		response in json format.
 
             """
 ```
