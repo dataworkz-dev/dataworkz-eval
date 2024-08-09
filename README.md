@@ -1,11 +1,22 @@
 # Dataworkz Evaluation Framework
-We introduce a state-of-the-art evaluation method (DEF) using LLM-as-a-Judge that captures the essence of a generated answer when compared to a golden response and also provides a measurable metric. We run our evaluation metrics across a publicly available finance dataset, [Apple 10-K filing for the fiscal year 2022](https://investor.apple.com/sec-filings/default.aspx). We leveraged [FinQABench](https://huggingface.co/datasets/lighthouzai/finqabench), a QA benchmark specifically designed for financial applications, which is based on Apple’s 2022 10-K filing. FinQABench comprises 100 questions related to the Apple 10-K 2022 filing, along with golden answers and corresponding golden context. We tested all the FinQABench questions against the Dataworkz (DW) RAG system and evaluated the generated DW answers by comparing them to the FinQABench golden answers.
+We introduce a state-of-the-art evaluation method (DEF) using LLM-as-a-Judge that captures the essence of a generated answer when compared to a golden response and also provides a measurable metric. We run our evaluation metrics across a publicly available finance dataset, [Apple 10-K filing for the fiscal year 2022](https://investor.apple.com/sec-filings/default.asp). We leveraged [FinQABench](https://huggingface.co/datasets/lighthouzai/finqabench), a QA benchmark specifically designed for financial applications, which is based on Apple’s 2022 10-K filing. FinQABench comprises 100 questions related to the Apple 10-K 2022 filing, along with golden answers and corresponding golden context. We tested all the FinQABench questions against the Dataworkz (DW) RAG system and evaluated the generated DW answers by comparing them to the FinQABench golden answers.
 
-The result is available at: data/apple10k_evaluation_result.csv
+The result is available at: [Apple 10k evaluation result](https://github.com/dataworkz-dev/dataworkz-eval/blob/8f4ad7ec0a9227998aaf3c2550cd51c893aacd00/data/apple10k_evaluation_result.csv)
 
 ## Prompt used for LLM-as-a-Judge
-We use the following prompt for generating metrics.
-To build the prompt we utilize the prompt template present [here](https://smith.langchain.com/hub/wfh/proposal-indexing?organizationId=97591f89-2916-48d3-804e-20cab23f91aa).
+To build our prompt we adapt the prompt template present in Chen et. al's paper [Dense X Retrieval: What Retrieval Granularity Should We Use?](https://arxiv.org/abs/2312.06648).
+
+```
+@misc{chen2023dense,
+      title={Dense X Retrieval: What Retrieval Granularity Should We Use?},
+      author={Tong Chen and Hongwei Wang and Sihao Chen and Wenhao Yu and Kaixin Ma and Xinran Zhao and Hongming Zhang and Dong Yu},
+      year={2023},
+      eprint={2312.06648},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
+Our final prompt template for generating metrics:
 
 ```python
 prompt =    """
