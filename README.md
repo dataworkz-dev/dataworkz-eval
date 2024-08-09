@@ -4,8 +4,8 @@ We introduce a state-of-the-art evaluation method (DEF) using LLM-as-a-Judge tha
 The result is available at: data/apple10k_evaluation_result.csv
 
 ## Prompt used for LLM-as-a-Judge
-We use the following prompt for generating metrics:
-This prompt uses the prompt template present [here](https://smith.langchain.com/hub/wfh/proposal-indexing?organizationId=97591f89-2916-48d3-804e-20cab23f91aa).
+We use the following prompt for generating metrics.
+To build the prompt we utilize the prompt template present [here](https://smith.langchain.com/hub/wfh/proposal-indexing?organizationId=97591f89-2916-48d3-804e-20cab23f91aa).
 
 ```python
 prompt =    """
