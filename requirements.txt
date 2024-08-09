@@ -1,0 +1,6 @@
+nltk
+rouge_score
+bert_score
+sentence_transformers
+openai
+openpyxl
